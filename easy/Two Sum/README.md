@@ -13,7 +13,13 @@ return [0, 1].
 ```
 
 ## Solution
+- [Java](#java)
+- [JavaScript](#javascript)
+- [C](#)
 
+## Java
+
+### Code
 ```java
 class Solution {
     public int[] twoSum(int[] nums, int target) {
@@ -37,3 +43,31 @@ class Solution {
     }
 }
 ```
+### Rating
+<img src="./rating-java-01.png" alt="java" height="100%" width="100%">
+
+## JavaScript
+
+### Code
+
+```javascript
+/**
+ * @param {number[]} nums
+ * @param {number} target
+ * @return {number[]}
+ */
+var twoSum = function(nums, target) {
+
+    var map = {};
+    
+    for(var i in nums) {
+        if(map[target-nums[i]] >= 0) {  
+            return [map[target-nums[i]], +i];
+        }
+        
+        map[nums[i]] = +i;
+    }
+};
+```
+### Rating
+<img src="./rating-javascript-01.png" alt="java" height="100%" width="100%">
