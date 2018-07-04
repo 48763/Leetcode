@@ -13,9 +13,122 @@ return [0, 1].
 ```
 
 ## Solution
+- [C](#)
 - [Java](#java)
 - [JavaScript](#javascript)
-- [C](#)
+- [Python](#python)
+
+## C
+>None...
+
+<!--
+```c
+typedef struct hashMap{
+    struct hashNode** hashTable;
+    int size;
+}hashMap;
+
+static inline hashMap* hash_Init( int size )
+{
+    hashMap* hm = malloc( sizeof(hashMap) );
+    hm->hashTable = calloc( size, sizeof(hashNode*) );
+    hm->size = size;
+    return hm;
+}
+
+static inline void hash_destroy( hashMap* hm )
+{
+    int i= 0;
+    int size = hm->size;
+    hashNode** ht = hm->hashTable;
+    hashNode* hn;
+    
+    for( i = 0; i < size; i++ )
+    {
+        if( (hn = ht[i]) )
+            free( hn );
+    }
+    
+    free( ht );
+    free( hm );
+}
+
+static inline hashNode* hash_get( hashMap* hm, int key )
+{
+    hashNode* node;
+    hashNode** ht = hm->hashTable;
+    int size = hm->size;
+    int h = abs(key) %  size;
+    
+    while( (node = ht[h]) )
+    {
+        if( node->key != key )
+        {
+            if( h < size - 1)
+                h++;
+            else
+                h = 0;
+        }
+        else
+            return node;
+    }
+    
+    return NULL;
+}
+
+static inline void hash_set( hashMap* hm, int key, int value )
+{
+    hashNode** ht = hm->hashTable;
+    hashNode* node;
+    int size = hm->size;
+    int h = abs(key) % size;
+    
+    while( ht[h] )
+    {
+        if( h < size - 1 )
+            h++;
+        else
+            h = 0;
+    }
+    
+    node = malloc( sizeof(hashNode) );
+    node->key = key;
+    node->value = value;
+    ht[h] = node;
+}
+
+
+int* twoSum(int* nums, int numsSize, int target) {
+    int i,rest;
+    hashNode *hn;
+    hashMap *hm;
+    int* r = malloc( 2 * sizeof(int) );
+    hm = hash_Init( numsSize * 2 );
+    
+    for( i = 0; i < numsSize; i++ )
+    {
+        rest = target - nums[i];
+        hn = hash_get( hm, rest );
+        if( hn )
+        {
+            r[0] = hn->value;
+            r[1] = i;
+            hash_destroy( hm );
+            return r;
+        }
+        else
+        {
+            hash_set( hm, nums[i], i ) ;
+        }
+    }
+    
+    hash_destroy( hm );
+    return NULL;
+    
+}
+```
+-->
+
 
 ## Java
 
@@ -71,3 +184,25 @@ var twoSum = function(nums, target) {
 ```
 ### Rating
 <img src="./rating-javascript-01.png" alt="java" height="100%" width="100%">
+
+
+
+## Python 
+
+### Code
+
+```python
+class Solution(object):
+    def twoSum(self, nums, target):
+        """
+        :type nums: List[int]
+        :type target: int
+        :rtype: List[int]
+        """
+        dic  = {}
+        for index, value in enumerate(nums):
+            diff = target-value
+            if diff in dic:
+                return [dic[diff],index]
+            dic[value] = index
+```
