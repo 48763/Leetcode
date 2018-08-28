@@ -18,25 +18,31 @@ return [0, 1].
 - [JavaScript](#javascript)
 - [Python](#python)
 
-## C
->None...
 
-<!--
-```c
+
+## C
+
+### Code
+```C
+typedef struct hashNode {
+    int key;
+    int value;
+}hashNode;
+
 typedef struct hashMap{
     struct hashNode** hashTable;
     int size;
 }hashMap;
 
-static inline hashMap* hash_Init( int size )
+static inline hashMap* hash_Init(int size)
 {
-    hashMap* hm = malloc( sizeof(hashMap) );
-    hm->hashTable = calloc( size, sizeof(hashNode*) );
+    hashMap* hm = malloc(sizeof(hashMap));
+    hm->hashTable = calloc(size, sizeof(hashNode*));
     hm->size = size;
     return hm;
 }
 
-static inline void hash_destroy( hashMap* hm )
+static inline void hash_destroy(hashMap* hm)
 {
     int i= 0;
     int size = hm->size;
@@ -46,25 +52,25 @@ static inline void hash_destroy( hashMap* hm )
     for( i = 0; i < size; i++ )
     {
         if( (hn = ht[i]) )
-            free( hn );
+            free(hn);
     }
     
-    free( ht );
-    free( hm );
+    free(ht);
+    free(hm);
 }
 
-static inline hashNode* hash_get( hashMap* hm, int key )
+static inline hashNode* hash_get(hashMap* hm, int key)
 {
     hashNode* node;
     hashNode** ht = hm->hashTable;
     int size = hm->size;
     int h = abs(key) %  size;
     
-    while( (node = ht[h]) )
+    while((node = ht[h]))
     {
-        if( node->key != key )
+        if(node->key != key)
         {
-            if( h < size - 1)
+            if(h < size - 1)
                 h++;
             else
                 h = 0;
@@ -76,22 +82,22 @@ static inline hashNode* hash_get( hashMap* hm, int key )
     return NULL;
 }
 
-static inline void hash_set( hashMap* hm, int key, int value )
+static inline void hash_set(hashMap* hm, int key, int value)
 {
     hashNode** ht = hm->hashTable;
     hashNode* node;
     int size = hm->size;
     int h = abs(key) % size;
     
-    while( ht[h] )
+    while(ht[h])
     {
-        if( h < size - 1 )
+        if(h < size - 1)
             h++;
         else
             h = 0;
     }
     
-    node = malloc( sizeof(hashNode) );
+    node = malloc(sizeof(hashNode));
     node->key = key;
     node->value = value;
     ht[h] = node;
@@ -102,8 +108,8 @@ int* twoSum(int* nums, int numsSize, int target) {
     int i,rest;
     hashNode *hn;
     hashMap *hm;
-    int* r = malloc( 2 * sizeof(int) );
-    hm = hash_Init( numsSize * 2 );
+    int* r = malloc(2 * sizeof(int));
+    hm = hash_Init(numsSize * 2);
     
     for( i = 0; i < numsSize; i++ )
     {
@@ -124,11 +130,11 @@ int* twoSum(int* nums, int numsSize, int target) {
     
     hash_destroy( hm );
     return NULL;
-    
 }
 ```
--->
 
+### Rating
+<img src="./rating-c-01.png" alt="c" height="100%" width="100%">
 
 ## Java
 
